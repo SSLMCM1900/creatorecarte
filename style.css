@@ -1,0 +1,230 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar laterale */
+.sidebar {
+    width: 300px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+}
+
+    .sidebar h2,
+    .sidebar h3 {
+        margin-top: 0;
+    }
+
+    .sidebar label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    .sidebar input[type="text"],
+    .sidebar input[type="number"],
+    .sidebar select,
+    .sidebar textarea {
+        width: 100%;
+        padding: 6px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        font-size: 0.9rem;
+    }
+
+    .sidebar button {
+        margin-top: 20px;
+        padding: 10px;
+        width: 100%;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+/* Area centrale */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Carta */
+.card {
+    width: 260px;
+    height: 360px;
+    background-color: #fff;
+    border: 2px solid #333;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    user-select: none;
+}
+
+/* Header carta */
+.card-header {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #000;
+    padding: 4px 10px;
+    background: #f0f0f0;
+    margin-bottom: 10px;
+}
+
+    .card-header h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+.top-symbol {
+    font-size: 1.2rem;
+    color: black;
+}
+
+/* Immagine carta */
+.image-container {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 2px; /* Ridotto lo spazio */
+    border: 1px solid #aaa;
+    resize: both;
+    max-width: 100%;
+    max-height: 60%;
+}
+
+#cardImage {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    
+}
+
+/* Descrizione */
+#cardDescription {
+    flex: 1 1 auto;
+    padding: 8px;
+    font-size: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    margin-top: 1px;
+    overflow-y: auto;
+    min-height: 10px;
+    white-space: pre-wrap; /* Supporta "a capo" */
+    word-wrap: break-word;
+}
+
+/* Footer carta */
+.card-footer {
+    flex: 0 0 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 5px 8px;
+    background: #eee;
+    border-top: 1px solid #ccc;
+    gap: 6px;
+    overflow: hidden;
+    user-select: none;
+    font-size: 0.85rem;
+}
+
+/* Caselle icona */
+.footer-image-box {
+    width: 30px;
+    height: 30px;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    user-select: none;
+}
+
+/* Casella numero carta */
+.footer-number-box {
+    width: 70px;
+    height: 30px;
+    background: white;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    color: black;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Casella rarità */
+.footer-rarity-box {
+    width: 30px;
+    height: 30px;
+    background: black;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+/* Forme simboliche */
+.circle {
+    border-radius: 50%;
+}
+
+.star {
+    clip-path: polygon( 50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35% );
+}
+
+.diamond {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.footer-image-box:empty,
+.footer-rarity-box:empty {
+    background: transparent;
+    border: 1px dashed #ccc;
+    color: transparent;
+    pointer-events: none;
+}
+
+/* Palette colori */
+.swatch-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.color-swatch {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}

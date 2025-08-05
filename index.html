@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Creazione Carta Personalizzata</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Impostazioni Carta</h2>
+
+            <label for="titleInput">Titolo carta:</label>
+            <input type="text" id="titleInput" placeholder="Titolo" />
+            <h3>Font Titolo</h3>
+            <label for="titleFontFamily">Scegli font titolo:</label>
+            <select id="titleFontFamily">
+                <option value="Arial" selected>Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Lucida Console">Lucida Console</option>
+            </select>
+            <label for="titleFontSize">Grandezza titolo:</label>
+            <input type="number" id="titleFontSize" min="10" max="36" value="16" />
+
+
+            <h3>Colore e Sfondo Titolo</h3>
+            <label for="titleFontColor">Colore testo titolo</label>
+            <input type="color" id="titleFontColor" value="#000000" />
+            <div id="titleColorSwatches" class="swatch-container"></div>
+
+            <label for="titleBgColor">Sfondo titolo:</label>
+            <input type="color" id="titleBgColor" value="#ffffff" />
+            <div id="titleBgColorSwatches" class="swatch-container"></div>
+
+            <label for="descInput">Descrizione:</label>
+            <textarea id="descInput" rows="4" placeholder="Descrizione della carta"></textarea>
+            <h3>Font Descrizione</h3>
+            <label for="descFontFamily">Scegli font descrizione:</label>
+            <select id="descFontFamily">
+                <option value="Arial" selected>Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Lucida Console">Lucida Console</option>
+            </select>
+            <label for="descriptionFontSize">Grandezza descrizione:</label>
+            <input type="number" id="descriptionFontSize" min="6" max="24" value="10" />
+            <h3>Colore e Sfondo Descrizione</h3>
+            <label for="descFontColor">Colore testo descrizione:</label>
+            <input type="color" id="descFontColor" value="#000000" />
+            <div id="descColorSwatches" class="swatch-container"></div>
+
+            <label for="descBgColor">Sfondo descrizione:</label>
+            <input type="color" id="descBgColor" value="#ffffff" />
+            <div id="descBgColorSwatches" class="swatch-container"></div>
+
+            <label for="imageInput">Carica immagine:</label>
+            <input type="file" id="imageInput" accept="image/*" />
+
+            <label for="imageWidth">Larghezza immagine (px):</label>
+            <input type="number" id="imageWidth" min="50" max="350" value="300" />
+
+            <label for="imageHeight">Altezza immagine (px):</label>
+            <input type="number" id="imageHeight" min="50" max="250" value="150" />
+
+            <label for="topSymbolSelect">Simbolo in alto a destra:</label>
+            <select id="topSymbolSelect">
+                <option value="&#8734;">∞ (Infinito)</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+
+            <hr />
+            <label for="footerBgColor">Sfondo barra in basso:</label>
+            <input type="color" id="footerBgColor" value="#ffffff" />
+            <div id="footerBgColorSwatches" class="swatch-container"></div>
+            <h3>Caselle in basso (5 grandi + numero carta + rarità)</h3>
+            <div id="footerControls">
+                <!-- Qui saranno generate dinamicamente le combo forma/simbolo per le 5 caselle e rarità -->
+            </div>
+            <h3>Numero Carta</h3>
+            <label for="cardNumberInput">Testo numero carta:</label>
+            <input type="text" id="cardNumberInput" placeholder="es. 1/150" />
+
+            <label for="numberFontFamily">Font numero carta:</label>
+            <select id="numberFontFamily">
+                <option value="Arial" selected>Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Lucida Console">Lucida Console</option>
+            </select>
+            <label for="shapeColor">Colore forme:</label>
+            <input type="color" id="shapeColor" value="#000000" />
+            <div id="shapeColorSwatches" class="swatch-container"></div>
+
+            <!-- Colore dei simboli -->
+            <label for="symbolColor">Colore simboli:</label>
+            <input type="color" id="symbolColor" value="#ffffff" />
+            <div id="symbolColorSwatches" class="swatch-container"></div>
+
+
+            <label for="NCartatesto">Colore numero carta:</label>
+            <input type="color" id="NCartaTesto" value="#000000" />
+            <div id="NCartaTestoColori" class="swatch-container"></div>
+            <label for="NCartasfondo">Sfondo numero carta::</label>
+            <input type="color" id="NCartaSfondo" value="#ffffff" />
+            <div id="NCartaSfondoColori" class="swatch-container"></div>
+
+            <hr />
+
+
+
+
+
+
+
+            <h3>Sfondo Carta</h3>
+            <label for="cardBgColor">Colore sfondo carta:</label>
+            <input type="color" id="cardBgColor" value="#ffffff" />
+            <div id="cardBgColorSwatches" class="swatch-container"></div>
+
+            <button id="downloadBtn">Scarica Carta</button>
+
+
+
+
+        </aside>
+
+        <main>
+            <div class="card" id="cardPreview">
+                <div class="card-header">
+                    <h2 id="cardTitle" >Titolo</h2>
+                    <div id="cardTopSymbol" class="top-symbol">&#8734;</div>
+                </div>
+
+                <div class="image-container">
+                    <img id="cardImage" src="" alt="Immagine carta" />
+                </div>
+
+                <p id="cardDescription">Descrizione della carta</p>
+
+                <div class="card-footer">
+                    <div class="footer-box footer-rarity-box" data-index="7"></div>
+                    <div class="footer-box footer-number-box" data-index="6">1/150</div>
+                    <div class="footer-box footer-image-box" data-index="1"></div>
+                    <div class="footer-box footer-image-box" data-index="2"></div>
+                    <div class="footer-box footer-image-box" data-index="3"></div>
+                    <div class="footer-box footer-image-box" data-index="4"></div>
+                    <div class="footer-box footer-image-box" data-index="5"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
