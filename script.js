@@ -1,4 +1,4 @@
-﻿// Elementi principali
+// Elementi principali
 const titleInput = document.getElementById("titleInput");
 const descInput = document.getElementById("descInput");
 const imageInput = document.getElementById("imageInput");
@@ -263,6 +263,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Inizializza colori simboli e forme
     updateFooterColors();
+    updateFontSizes();
 
     // Reset caselle
     for (let i = 1; i <= 5; i++) {
@@ -277,3 +278,18 @@ window.addEventListener("DOMContentLoaded", () => {
         rarityBox.textContent = "";
     }
 });
+const titleFontSizeInput = document.getElementById("titleFontSizeInput");
+const descFontSizeInput = document.getElementById("descFontSizeInput");
+
+function updateFontSizes() {
+    const titleSize = parseInt(titleFontSizeInput.value) || 14;
+    const descSize = parseInt(descFontSizeInput.value) || 10;
+
+    cardTitle.style.fontSize = `${titleSize}px`;
+    cardTopSymbol.style.fontSize = `${titleSize}px`;
+    cardDescription.style.fontSize = `${descSize}px`;
+}
+
+// Event listener sugli input
+titleFontSizeInput.addEventListener("input", updateFontSizes);
+descFontSizeInput.addEventListener("input", updateFontSizes);
