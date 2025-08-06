@@ -40,7 +40,12 @@ titleInput.addEventListener("input", () => {
 
 // Descrizione
 descInput.addEventListener("input", () => {
-    cardDescription.innerHTML = descInput.value.replaceAll("\n", "<br>") || "Descrizione della carta";
+    if (descInput.value.trim() === "") {
+        cardDescription.style.display = "none";
+    } else {
+        cardDescription.style.display = "flex";
+        cardDescription.innerHTML = descInput.value.replaceAll("\n", "<br>") || "Descrizione della carta";
+    }
 });
 
 // Immagine
