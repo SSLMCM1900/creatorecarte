@@ -317,12 +317,12 @@ function updateFooterSymbol(e) {
 
 // Rarità
 const rarityLabel = document.createElement("label");
-rarityLabel.textContent = "Rarità (C, NC, R, UR)";
+rarityLabel.textContent = "Rarità (C, NC, R, SR, UR)";
 rarityLabel.style.display = "block";
 rarityLabel.style.marginTop = "15px";
 
 const raritySelect = document.createElement("select");
-["", "C", "NC", "R", "UR"].forEach(rarity => {
+["", "C", "NC", "R","SR", "UR"].forEach(rarity => {
     const opt = document.createElement("option");
     opt.value = rarity;
     opt.textContent = rarity;
