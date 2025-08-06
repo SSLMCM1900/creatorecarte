@@ -292,23 +292,25 @@ function updateFooterSymbol(e) {
     if (!box) return;
 
     // Colori per questa casella
+    
+   
+
     const symbolColorInput = document.querySelector(`input.symbol-color[data-index="${index}"]`);
     const shapeColorInput = document.querySelector(`input.shape-color[data-index="${index}"]`);
-
-
     if (index === "1") {
+
         const symbol = selects[0].value;
         box.className = "footer-image-box";
         box.textContent = symbol;
-        box.style.color = symbolColor;
-        box.style.backgroundColor = shapeColor;
+        box.style.color = symbolColorInput.value;
+        box.style.backgroundColor = shapeColorInput.value;
     } else {
         const shape = selects[0].value;
         const symbol = selects[1].value;
         box.className = `footer-image-box ${shape}`;
         box.textContent = symbol;
-        box.style.color = symbolColor;
-        box.style.backgroundColor = shapeColor;
+        box.style.color = symbolColorInput.value;
+        box.style.backgroundColor = shapeColorInput.value;
     }
 }
 
