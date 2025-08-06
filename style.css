@@ -145,7 +145,6 @@ main {
 .card-footer {
     flex: 0 0 40px;
     display: flex;
-    
     align-items: center;
     padding: 5px 8px;
     background: #eee;
@@ -155,32 +154,48 @@ main {
     user-select: none;
     font-size: 0.85rem;
 }
+
 .left-group {
     display: flex;
     flex-direction: row;
     gap: 6px;
     flex: 1 1 auto;
+    overflow: hidden;
 }
 
-/* Destra → invertito */
 .right-group {
     display: flex;
     flex-direction: row-reverse;
     gap: 6px;
     flex: 0 0 auto;
+    overflow: hidden;
 }
-/* Caselle icona */
+
+/* Caselle icona (sinistra) */
 .footer-image-box {
     width: 30px;
     height: 30px;
     background: black;
     color: white;
-    display: none;
+    display: none; /* nascosto di default */
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
     border-radius: 4px;
     user-select: none;
+}
+
+/* Casella rarità (destra) */
+.footer-rarity-box {
+    width: 30px;
+    height: 30px;
+    background: black;
+    color: white;
+    border-radius: 6px;
+    display: flex; /* visibile di default */
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
 }
 
 /* Casella numero carta */
@@ -197,17 +212,13 @@ main {
     align-items: center;
 }
 
-/* Casella rarità */
-.footer-rarity-box {
-    width: 30px;
-    height: 30px;
-    background: black;
-    color: white;
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
+/* Quando vuoti */
+.footer-image-box:empty,
+.footer-rarity-box:empty {
+    background: transparent;
+    border: 1px dashed #ccc;
+    color: transparent;
+    pointer-events: none;
 }
 
 /* Forme simboliche */
@@ -216,29 +227,11 @@ main {
 }
 
 .star {
-    clip-path: polygon( 50% 0%, /* punta superiore */
-    70% 35%, /* punta destra alta */
-    100% 50%, /* punta destra centrale */
-    70% 65%, /* punta destra bassa */
-    80% 100%, /* punta inferiore destra */
-    50% 80%, /* centro basso */
-    20% 100%, /* punta inferiore sinistra */
-    30% 65%, /* punta sinistra bassa */
-    0% 50%, /* punta sinistra centrale */
-    30% 35% /* punta sinistra alta */
-    );
+    clip-path: polygon( 50% 0%, 70% 35%, 100% 50%, 70% 65%, 80% 100%, 50% 80%, 20% 100%, 30% 65%, 0% 50%, 30% 35% );
 }
 
 .diamond {
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-}
-
-.footer-image-box:empty,
-.footer-rarity-box:empty {
-    background: transparent;
-    border: 1px dashed #ccc;
-    color: transparent;
-    pointer-events: none;
 }
 
 /* Palette colori */
@@ -254,6 +247,7 @@ main {
     height: 18px;
     flex-shrink: 0;
 }
+
 .export-cleanup {
     resize: none !important;
     overflow: hidden !important;
