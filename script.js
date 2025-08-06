@@ -320,7 +320,7 @@ rarityLabel.style.display = "block";
 rarityLabel.style.marginTop = "15px";
 
 const raritySelect = document.createElement("select");
-["", "C", "NC", "R", "UR"].forEach(rarity => {
+["", "C", "NC", "R", "SR", "UR"].forEach(rarity => {
     const opt = document.createElement("option");
     opt.value = rarity;
     opt.textContent = rarity;
@@ -531,5 +531,6 @@ createColorSwatches("NCartaSfondoColori", "NCartaSfondo", (color) => {
     NCartaSfondoInput.value = color;
     updateNumeroCartaColors();
 });
+
 
 
