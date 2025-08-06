@@ -315,12 +315,12 @@ function updateFooterSymbol(e) {
 
 // Rarità
 const rarityLabel = document.createElement("label");
-rarityLabel.textContent = "Rarità (C, NC, R, SR, UR)";
+rarityLabel.textContent = "Rarità (C, NC, R, UR)";
 rarityLabel.style.display = "block";
 rarityLabel.style.marginTop = "15px";
 
 const raritySelect = document.createElement("select");
-["", "C", "NC", "R", "SR", "UR"].forEach(rarity => {
+["", "C", "NC", "R", "UR"].forEach(rarity => {
     const opt = document.createElement("option");
     opt.value = rarity;
     opt.textContent = rarity;
@@ -531,6 +531,29 @@ createColorSwatches("NCartaSfondoColori", "NCartaSfondo", (color) => {
     NCartaSfondoInput.value = color;
     updateNumeroCartaColors();
 });
+const titleFontFamily = document.getElementById("titleFontFamily");
+titleFontSizeInput.addEventListener("input", updateFontSizes);
+titleFontFamily.addEventListener("change", () => {
+    cardTitle.style.fontFamily = titleFontFamily.value;
+    cardTopSymbol.style.fontFamily = titleFontFamily.value;
+}
 
+)
 
+const descFontFamily = document.getElementById("descFontFamily");
+descFontSizeInput.addEventListener("input", updateFontSizes);
+descFontFamily.addEventListener("change", () => {
+    cardDescription.style.fontFamily = descFontFamily.value;
+   
+}
 
+)
+
+const numberFontFamily = document.getElementById("numberFontFamily");
+
+numberFontFamily.addEventListener("change", () => {
+    NumeroCarta.style.fontFamily = numberFontFamily.value;
+
+}
+
+)
