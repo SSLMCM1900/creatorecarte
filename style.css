@@ -139,6 +139,7 @@ main {
     min-height: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;
+    display: none;
 }
 
 /* Footer carta */
@@ -196,6 +197,7 @@ main {
     justify-content: center;
     align-items: center;
     font-weight: 700;
+    border: 1px solid #aaa;
 }
 
 /* Casella numero carta */
@@ -252,4 +254,15 @@ main {
     resize: none !important;
     overflow: hidden !important;
     border: none !important;
+}
+
+#Casella1 {
+    background: white;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    color: black;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
