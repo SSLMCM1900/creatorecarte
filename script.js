@@ -315,7 +315,7 @@ function updateFooterSymbol(e) {
 
 // Rarità
 const rarityLabel = document.createElement("label");
-rarityLabel.textContent = "Rarità (C, NC, R, UR)";
+rarityLabel.textContent = "Rarità (C, NC, R, SR, UR)";
 rarityLabel.style.display = "block";
 rarityLabel.style.marginTop = "15px";
 
@@ -531,4 +531,5 @@ createColorSwatches("NCartaSfondoColori", "NCartaSfondo", (color) => {
     NCartaSfondoInput.value = color;
     updateNumeroCartaColors();
 });
+
 
