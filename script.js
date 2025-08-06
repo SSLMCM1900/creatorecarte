@@ -289,6 +289,7 @@ function updateFooterSymbol(e) {
     const selects = document.querySelectorAll(`select[data-index="${index}"]`);
     const box = document.querySelector(`.footer-image-box[data-index="${index}"]`);
     box.style.display = "flex"; // Assicurati che la casella sia visibile
+    
     if (!box) return;
 
     // Colori per questa casella
@@ -311,6 +312,9 @@ function updateFooterSymbol(e) {
         box.textContent = symbol;
         box.style.color = symbolColorInput.value;
         box.style.backgroundColor = shapeColorInput.value;
+        if (symbol === "⇑" || symbol === "⇓" || symbol === "⇒" || symbol === "⇐") {
+            box.style.fontFamily = 'Noto Sans Symbols';
+        }
     }
 }
 
