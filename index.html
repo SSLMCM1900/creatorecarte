@@ -97,6 +97,13 @@
             <div id="footerControls">
                 <!-- Qui saranno generate dinamicamente le combo forma/simbolo per le 5 caselle e rarità -->
             </div>
+            <label for="rarityTextColor">Colore testo rarità:</label>
+            <input type="color" id="rarityTextColor" value="#000000" />
+            <div id="rarityTextColorSwatches" class="swatch-container"></div>
+
+            <label for="rarityBgColor">Sfondo rarità:</label>
+            <input type="color" id="rarityBgColor" value="#FFFFFF" />
+            <div id="rarityBgColorSwatches" class="swatch-container"></div>
             <h3>Numero Carta</h3>
             <label for="cardNumberInput">Testo numero carta:</label>
             <input type="text" id="cardNumberInput" placeholder="es. 1/150" />
@@ -113,22 +120,23 @@
                 <option value="Courier New">Courier New</option>
                 <option value="Lucida Console">Lucida Console</option>
             </select>
-            <label for="shapeColor">Colore forme:</label>
-            <input type="color" id="shapeColor" value="#000000" />
-            <div id="shapeColorSwatches" class="swatch-container"></div>
-
-            <!-- Colore dei simboli -->
-            <label for="symbolColor">Colore simboli:</label>
-            <input type="color" id="symbolColor" value="#ffffff" />
-            <div id="symbolColorSwatches" class="swatch-container"></div>
-
-
             <label for="NCartatesto">Colore numero carta:</label>
             <input type="color" id="NCartaTesto" value="#000000" />
             <div id="NCartaTestoColori" class="swatch-container"></div>
             <label for="NCartasfondo">Sfondo numero carta::</label>
             <input type="color" id="NCartaSfondo" value="#ffffff" />
             <div id="NCartaSfondoColori" class="swatch-container"></div>
+            <label for="shapeColor">Colore tutte le forme:</label>
+            <input type="color" id="shapeColor" value="#ffffff" />
+            <div id="shapeColorSwatches" class="swatch-container"></div>
+
+            <!-- Colore dei simboli -->
+            <label for="symbolColor">Colore tutti i simboli:</label>
+            <input type="color" id="symbolColor" value="#000000" />
+            <div id="symbolColorSwatches" class="swatch-container"></div>
+
+
+
 
             <hr />
 
@@ -153,7 +161,7 @@
         <main>
             <div class="card" id="cardPreview">
                 <div class="card-header">
-                    <h2 id="cardTitle" >Titolo</h2>
+                    <h2 id="cardTitle">Titolo</h2>
                     <div id="cardTopSymbol" class="top-symbol">&#8734;</div>
                 </div>
 
@@ -164,16 +172,22 @@
                 <p id="cardDescription">Descrizione della carta</p>
 
                 <div class="card-footer">
-                    <div class="footer-box footer-rarity-box" data-index="7"></div>
-                    <div class="footer-box footer-number-box" data-index="6">1/150</div>
-                    <div class="footer-box footer-image-box" data-index="1"></div>
-                    <div class="footer-box footer-image-box" data-index="2"></div>
-                    <div class="footer-box footer-image-box" data-index="3"></div>
-                    <div class="footer-box footer-image-box" data-index="4"></div>
-                    <div class="footer-box footer-image-box" data-index="5"></div>
+
+                    <div class="left-group">
+                        
+                        <div class="footer-box footer-image-box" data-index="2" id="Casella2"></div>
+                        <div class="footer-box footer-image-box" data-index="3" id="Casella3"></div>
+                        <div class="footer-box footer-image-box" data-index="4" id="Casella4"></div>
+                        <div class="footer-box footer-image-box" data-index="5" id="Casella5"></div>
+                    </div>
+                    <div class="right-group">
+                        <div class="footer-box footer-rarity-box" data-index="7" id="Rarita"></div>
+                        <div class="footer-box footer-number-box" data-index="6" id="NumeroCarta">1/150</div>
+                        <div class="footer-box footer-image-box" data-index="1" id="Casella1"></div>
+                    </div>
                 </div>
 
-            </div>
+                </div>
         </main>
     </div>
 
