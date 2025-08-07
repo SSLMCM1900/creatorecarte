@@ -132,7 +132,9 @@ main {
 
 /* Descrizione */
 #cardDescription {
-    max-width: 278px
+    max-width: 278px;
+    text-align: justify;
+
     position: absolute;
     left: 10px;
     padding: 8px;
@@ -267,5 +269,6 @@ main {
     justify-content: center;
     align-items: center;
 }
+
 
 
