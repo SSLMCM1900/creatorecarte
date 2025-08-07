@@ -321,7 +321,7 @@ function updateFooterSymbol(e) {
         box.style.color = symbolColorInput.value;
         box.style.backgroundColor = shapeColorInput.value;
         if (symbol === "⇑" || symbol === "⇓" || symbol === "⇒" || symbol === "⇐") {
-            box.style.fontFamily = 'Noto Sans Symbols';
+            box.style.fontFamily = "Arial";
         }
     }
 }
@@ -642,3 +642,4 @@ const observer = new ResizeObserver(() => {
 });
 
 observer.observe(imageContainer);
+
