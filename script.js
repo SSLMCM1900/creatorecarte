@@ -43,7 +43,10 @@ descInput.addEventListener("input", () => {
     if (descInput.value.trim() === "") {
         cardDescription.style.display = "none";
     } else {
-        cardDescription.style.display = "flex";
+        cardDescription.style.display = "block";
+        // Esegui quando mostri la descrizione
+        
+        updateDescriptionPosition();
         cardDescription.innerHTML = descInput.value.replaceAll("\n", "<br>") || "Descrizione della carta";
     }
 });
@@ -483,7 +486,18 @@ window.addEventListener("DOMContentLoaded", () => {
     cardTopSymbol.innerHTML = topSymbolSelect.value;
     updateRarityColors();
     updateNumeroCartaColors();
+    const cardHeader = document.querySelector('.card-header');
 
+    const headerWidth = cardHeader.offsetWidth;
+    imageContainer.style.width = `${headerWidth}px`;
+
+    const headerRect = cardHeader.getBoundingClientRect();
+    const cardRect = cardHeader.closest('.card').getBoundingClientRect();
+
+    const headerBottom = headerRect.bottom - cardRect.top; // posizione relativa alla .card
+    imageContainer.style.top = `${headerBottom + 4}px`;
+    imageWidthInput.value = imageContainer.offsetWidth;
+    imageHeightInput.value = imageContainer.offsetHeight;
 
     // Colori
     updateTitleFontColor(document.getElementById("titleFontColor").value);
@@ -568,3 +582,63 @@ numberFontFamily.addEventListener("change", () => {
 }
 
 )
+
+
+
+
+
+
+
+
+
+const card = document.querySelector('.card');
+
+let isDragging = false;
+let offsetX, offsetY;
+
+imageContainer.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    const rect = imageContainer.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+        const cardRect = card.getBoundingClientRect();
+        let newLeft = e.clientX - cardRect.left - offsetX;
+        let newTop = e.clientY - cardRect.top - offsetY;
+
+        // Limiti per non uscire dalla card
+        const maxLeft = card.clientWidth - imageContainer.clientWidth;
+        const maxTop = card.clientHeight - imageContainer.clientHeight;
+
+        newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+        newTop = Math.max(0, Math.min(newTop, maxTop));
+
+        imageContainer.style.left = `${newLeft}px`;
+        imageContainer.style.top = `${newTop}px`;
+
+        // Aggiorna la posizione della descrizione
+        const imageBottom = newTop + imageContainer.offsetHeight ;
+        cardDescription.style.marginTop = `${imageBottom + 2}px`; // solo 2px di spazio
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+});
+
+function updateDescriptionPosition() {
+    const top = parseInt(imageContainer.style.top) || 0;
+    const height = imageContainer.offsetHeight;
+    const imageBottom = top + height ;
+    cardDescription.style.marginTop = `${imageBottom + 2}px`;
+}
+
+const observer = new ResizeObserver(() => {
+    imageWidthInput.value = imageContainer.offsetWidth;
+    imageHeightInput.value = imageContainer.offsetHeight;
+});
+
+observer.observe(imageContainer);
