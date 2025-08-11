@@ -134,7 +134,6 @@ main {
 #cardDescription {
     max-width: 278px;
     text-align: justify;
-
     position: absolute;
     left: 10px;
     padding: 8px;
@@ -146,8 +145,10 @@ main {
     word-wrap: break-word;
     display: none;
     z-index: 1;
+    width: 100%;
     /* ← assicurati che sia 0 */
 }
+
 
 /* Footer carta */
 .card-footer {
@@ -269,6 +270,3 @@ main {
     justify-content: center;
     align-items: center;
 }
-
-
-
