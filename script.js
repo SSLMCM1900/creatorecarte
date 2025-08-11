@@ -23,7 +23,7 @@ const cardNumberInput = document.getElementById("cardNumberInput");
 
 const NCartaTestoInput = document.getElementById("NCartaTesto");
 const NCartaSfondoInput = document.getElementById("NCartaSfondo");
-const Rarita = document.getElementById("Rarita");   
+const Rarita = document.getElementById("Rarita");
 const wordColors = [
     "#000000", "#FFFFFF", "#EEECE1", "#1F497D", "#4F81BD",
     "#C0504D", "#9BBB59", "#8064A2", "#4BACC6", "#F79646",
@@ -45,7 +45,7 @@ descInput.addEventListener("input", () => {
     } else {
         cardDescription.style.display = "block";
         // Esegui quando mostri la descrizione
-        
+
         updateDescriptionPosition();
         cardDescription.innerHTML = descInput.value.replaceAll("\n", "<br>") || "Descrizione della carta";
     }
@@ -83,13 +83,13 @@ topSymbolSelect.addEventListener("change", () => {
 });
 
 // Simboli e forme
-const allowedSymbols = ["⇑", "⇓", "⇒", "⇐", "∞", "⚡", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const allowedSymbols = ["⇑", "⇓", "⇒", "⇐", "∞", "⚡", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9"];
 const allowedShapes = ["circle", "star", "diamond"];
-const E = ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9" ];
+const E = ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9"];
 for (let i = 1; i <= 5; i++) {
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom = "15px";
-    
+
     if (i === 1) {
         // SOLO simboli da E[] per casella 1 (Tipologia E)
         const symbolLabel = document.createElement("label");
@@ -123,15 +123,15 @@ for (let i = 1; i <= 5; i++) {
         symbolSelect.addEventListener("change", updateFooterSymbol);
         symbolColorInput.addEventListener("input", updateFooterSymbol);
         shapeColorInput.addEventListener("input", updateFooterSymbol);
-        
 
-     
-       
 
-       
 
-    
-    
+
+
+
+
+
+
 
 
 
@@ -160,7 +160,7 @@ for (let i = 1; i <= 5; i++) {
 
         wrapper.appendChild(textSwatchContainer);
         wrapper.appendChild(document.createTextNode(" Colore sfondo: "));
-       
+
 
         const bgSwatchContainer = document.createElement("div");
         bgSwatchContainer.className = "swatch-container";
@@ -206,6 +206,7 @@ for (let i = 1; i <= 5; i++) {
         const symbolLabel = document.createElement("label");
         symbolLabel.textContent = `Simbolo casella ${i}`;
         symbolLabel.style.display = "block";
+        
 
         const symbolSelect = document.createElement("select");
         symbolSelect.dataset.index = i;
@@ -241,9 +242,9 @@ for (let i = 1; i <= 5; i++) {
         wrapper.appendChild(document.createTextNode("Colore simbolo: "));
         wrapper.appendChild(symbolColorInput);
         const textSwatchContainer = document.createElement("div");
-        
-       const element = document.getElementById(`Casella${i}`);
-       
+
+        const element = document.getElementById(`Casella${i}`);
+
         textSwatchContainer.className = "swatch-container"; // classe già definita nel CSS con flex
 
         wordColors.forEach(color => {
@@ -257,10 +258,10 @@ for (let i = 1; i <= 5; i++) {
         });
 
         wrapper.appendChild(textSwatchContainer);
-       
-        
+
+
         wrapper.appendChild(document.createTextNode(" Colore sfondo: "));
-     
+
         const bgSwatchContainer = document.createElement("div");
         bgSwatchContainer.className = "swatch-container";
         wordColors.forEach(color => {
@@ -297,12 +298,12 @@ function updateFooterSymbol(e) {
     const selects = document.querySelectorAll(`select[data-index="${index}"]`);
     const box = document.querySelector(`.footer-image-box[data-index="${index}"]`);
     box.style.display = "flex"; // Assicurati che la casella sia visibile
-    
+
     if (!box) return;
 
     // Colori per questa casella
-    
-   
+
+
 
     const symbolColorInput = document.querySelector(`input.symbol-color[data-index="${index}"]`);
     const shapeColorInput = document.querySelector(`input.shape-color[data-index="${index}"]`);
@@ -321,7 +322,7 @@ function updateFooterSymbol(e) {
         box.style.color = symbolColorInput.value;
         box.style.backgroundColor = shapeColorInput.value;
         if (symbol === "⇑" || symbol === "⇓" || symbol === "⇒" || symbol === "⇐") {
-            box.style.fontFamily ="'Arial Unicode MS', 'Noto Sans Symbols', sans-serif";
+            box.style.fontFamily = "'Arial Unicode MS', 'Noto Sans Symbols', sans-serif";
         }
     }
 }
@@ -334,7 +335,7 @@ rarityLabel.style.display = "block";
 rarityLabel.style.marginTop = "15px";
 
 const raritySelect = document.createElement("select");
-["", "C", "NC", "R","SR", "UR"].forEach(rarity => {
+["", "C", "NC", "R", "SR", "UR"].forEach(rarity => {
     const opt = document.createElement("option");
     opt.value = rarity;
     opt.textContent = rarity;
@@ -436,10 +437,10 @@ function updateFooterColors() {
 
     for (let i = 1; i <= 5; i++) {
         const box = document.querySelector(`.footer-image-box[data-index="${i}"]`);
-       
-            box.style.color = symbolColor;
-            box.style.backgroundColor = shapeColor;
-        
+
+        box.style.color = symbolColor;
+        box.style.backgroundColor = shapeColor;
+
     }
 
     if (rarityBox) {
@@ -569,7 +570,7 @@ const descFontFamily = document.getElementById("descFontFamily");
 descFontSizeInput.addEventListener("input", updateFontSizes);
 descFontFamily.addEventListener("change", () => {
     cardDescription.style.fontFamily = descFontFamily.value;
-   
+
 }
 
 )
@@ -620,7 +621,7 @@ document.addEventListener("mousemove", (e) => {
         imageContainer.style.top = `${newTop}px`;
 
         // Aggiorna la posizione della descrizione
-        const imageBottom = newTop + imageContainer.offsetHeight ;
+        const imageBottom = newTop + imageContainer.offsetHeight;
         cardDescription.style.marginTop = `${imageBottom + 2}px`; // solo 2px di spazio
     }
 });
@@ -632,7 +633,7 @@ document.addEventListener("mouseup", () => {
 function updateDescriptionPosition() {
     const top = parseInt(imageContainer.style.top) || 0;
     const height = imageContainer.offsetHeight;
-    const imageBottom = top + height ;
+    const imageBottom = top + height;
     cardDescription.style.marginTop = `${imageBottom + 2}px`;
 }
 
@@ -642,5 +643,4 @@ const observer = new ResizeObserver(() => {
 });
 
 observer.observe(imageContainer);
-
 
