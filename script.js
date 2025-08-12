@@ -86,6 +86,8 @@ topSymbolSelect.addEventListener("change", () => {
 const allowedSymbols = ["⇑", "⇓", "⇒", "⇐", "∞", "⚡", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9"];
 const allowedShapes = ["circle", "star", "diamond"];
 const E = ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9"];
+const colorisimboli = ["black", "black","black"];
+const coloriforme = ["white", "white", "white"];
 for (let i = 1; i <= 5; i++) {
     const wrapper = document.createElement("div");
     wrapper.style.marginBottom = "15px";
@@ -232,8 +234,14 @@ for (let i = 1; i <= 5; i++) {
 
         shapeSelect.addEventListener("change", updateFooterSymbol);
         symbolSelect.addEventListener("change", updateFooterSymbol);
-        symbolColorInput.addEventListener("input", updateFooterSymbol);
-        shapeColorInput.addEventListener("input", updateFooterSymbol);
+        symbolColorInput.addEventListener("input", (e) => {
+            colorisimboli[i] = e.target.value; // Salva il colore della forma
+            updateFooterSymbol(e);
+        });
+        shapeColorInput.addEventListener("input", (e) => {
+            coloriforme[i] = e.target.value; // Salva il colore della forma
+            updateFooterSymbol(e);
+        });
 
         wrapper.appendChild(shapeLabel);
         wrapper.appendChild(shapeSelect);
@@ -251,8 +259,10 @@ for (let i = 1; i <= 5; i++) {
             const swatch = document.createElement("div");
             swatch.className = "color-swatch";
             swatch.style.backgroundColor = color;
-            swatch.addEventListener("click", () => {
-                element.style.color = color;
+            swatch.dataset.index = i.toString(); // 👈 AGGIUNTO QUESTO
+            swatch.addEventListener("click", (e) => {
+                colorisimboli[i] = color; // Salva il colore della forma
+                updateFooterSymbol(e);
             });
             textSwatchContainer.appendChild(swatch);
         });
@@ -268,14 +278,18 @@ for (let i = 1; i <= 5; i++) {
             const swatch = document.createElement("div");
             swatch.className = "color-swatch";
             swatch.style.backgroundColor = color;
-            swatch.addEventListener("click", () => {
-                element.style.backgroundColor = color;
+            swatch.dataset.index = i.toString(); // 👈 AGGIUNTO QUESTO
+            swatch.addEventListener("click", (e) => {
+                coloriforme[i] = color; // Salva il colore della forma
+                updateFooterSymbol(e);
             });
             bgSwatchContainer.appendChild(swatch);
         });
 
         wrapper.appendChild(bgSwatchContainer);
         wrapper.appendChild(shapeColorInput);
+
+       
         const Elimina = document.createElement("button")
 
         Elimina.textContent = `Elimina Casella ${i}`;
@@ -291,39 +305,70 @@ for (let i = 1; i <= 5; i++) {
 
     footerControls.appendChild(wrapper);
 }
-
+const formeaggiunte = [0, 0, 0, 0, 0,0];
 // Aggiorna simbolo+forma in footer
 function updateFooterSymbol(e) {
+   
     const index = e.target.dataset.index;
     const selects = document.querySelectorAll(`select[data-index="${index}"]`);
     const box = document.querySelector(`.footer-image-box[data-index="${index}"]`);
-    box.style.display = "flex"; // Assicurati che la casella sia visibile
-
-    if (!box) return;
-
-    // Colori per questa casella
-
-
-
     const symbolColorInput = document.querySelector(`input.symbol-color[data-index="${index}"]`);
     const shapeColorInput = document.querySelector(`input.shape-color[data-index="${index}"]`);
+    const symbol = index === "1" ? selects[0].value : selects[1].value;
+    if (!box || selects.length === 0 || !symbolColorInput || !shapeColorInput) return;
     if (index === "1") {
-
         const symbol = selects[0].value;
         box.className = "footer-image-box";
         box.textContent = symbol;
         box.style.color = symbolColorInput.value;
         box.style.backgroundColor = shapeColorInput.value;
     } else {
-        const shape = selects[0].value;
-        const symbol = selects[1].value;
-        box.className = `footer-image-box ${shape}`;
-        box.textContent = symbol;
-        box.style.color = symbolColorInput.value;
-        box.style.backgroundColor = shapeColorInput.value;
-        if (symbol === "⇑" || symbol === "⇓" || symbol === "⇒" || symbol === "⇐") {
-            box.style.fontFamily = "'Arial Unicode MS', 'Noto Sans Symbols', sans-serif";
+
+        formeaggiunte[index] = 1
+        const totaleForme = formeaggiunte.reduce((acc, val) => acc + val, 0);
+        if (totaleForme >= 4) {
+            const availableWidth = document.querySelector('.card-footer').clientWidth;
+            const boxSize = Math.floor(190/ 7);
+            resizeFooterShapes(boxSize);
         }
+        const shape = index === "1" ? null : selects[0].value;
+        const symbolColor = symbolColorInput.value;
+        const shapeColor = shapeColorInput.value;
+
+        // Definizione delle forme SVG
+        const shapePolygons = {
+            triangle: "50,0 100,100 0,100",
+            hexagon: "25,0 75,0 100,50 75,100 25,100 0,50",
+            star: "50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35",
+            diamond: "50,0 100,50 50,100 0,50",
+            square: "0,0 100,0 100,100 0,100",
+            circle: "circle"
+        };
+
+
+        let shapeElement = "";
+
+        if (shape === "circle") {
+            shapeElement = `<circle cx="50" cy="50" r="45" id=shape${index} fill="${coloriforme[index]}" />`;
+        } else {
+            const points = shapePolygons[shape] || shapePolygons.square;
+            shapeElement = `<polygon points="${points}" id=shape${index} fill="${coloriforme[index]}" />`;
+        }
+
+        // Costruzione SVG
+        const svg = `
+<svg xmlns="http://www.w3.org/2000/svg"  class="shape" viewBox="0 0 100 100" width="100%" height="100%">
+  ${shapeElement}
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"id=symbol${index}
+        fill="${colorisimboli[index]}" font-size="40" font-family="Noto Sans Symbols, Arial">
+    ${symbol}
+  </text>
+</svg>
+`;
+
+        // Inserisci l’SVG nella box
+        box.innerHTML = svg;
+        box.style.display = "block";
     }
 }
 
@@ -448,8 +493,37 @@ function updateFooterColors() {
         rarityBox.style.color = symbolColor;
     }
 }
-symbolColorInput.addEventListener("input", updateFooterColors);
-shapeColorInput.addEventListener("input", updateFooterColors);
+symbolColorInput.addEventListener("input", (color) => {
+    shapeColorInput.value = color;
+    Rarita.style.color = color;
+    NumeroCarta.style.color = color;
+    const Casella1 = document.getElementById(`Casella1`);
+    if (Casella1) {
+        Casella1.style.color = color;
+    }
+    for (let i = 2; i <= 5; i++) {
+        const shapenuovo = document.getElementById(`symbol${i}`);
+        if (shapenuovo) {
+            shapenuovo.setAttribute('fill', color);
+        }
+    }
+});
+shapeColorInput.addEventListener("input", (color) => {
+    shapeColorInput.value = color;
+    Rarita.style.backgroundColor = color;
+    NumeroCarta.style.backgroundColor = color;
+    const Casella1 = document.getElementById(`Casella1`);
+    if (Casella1) {
+        Casella1.style.backgroundColor = color;
+    }
+    for (let i = 2; i <= 5; i++) {
+        const shapenuovo = document.getElementById(`shape${i}`);
+        if (shapenuovo) {
+            shapenuovo.setAttribute('fill', color);
+        }
+    }
+
+});
 
 
 
@@ -462,8 +536,19 @@ createColorSwatches("descBgColorSwatches", "descBgColor", updateDescBgColor);
 createColorSwatches("cardBgColorSwatches", "cardBgColor", updateCardBgColor);
 createColorSwatches("footerBgColorSwatches", "footerBgColor", updateFooterBgColor);
 createColorSwatches("symbolColorSwatches", "symbolColor", (color) => {
-    symbolColorInput.value = color;
-    updateFooterColors();
+    shapeColorInput.value = color;
+    Rarita.style.color = color;
+    NumeroCarta.style.color = color;
+    const Casella1 = document.getElementById(`Casella1`);
+    if (Casella1) {
+        Casella1.style.color = color;
+    }
+    for (let i = 2; i <= 5; i++) {
+        const shapenuovo = document.getElementById(`symbol${i}`);
+        if (shapenuovo) {
+            shapenuovo.setAttribute('fill', color);
+        }
+    }
 });
 createColorSwatches("rarityTextColorSwatches", "rarityTextColor", (color) => {
     rarityTextColorInput.value = color;
@@ -476,7 +561,19 @@ createColorSwatches("rarityBgColorSwatches", "rarityBgColor", (color) => {
 });
 createColorSwatches("shapeColorSwatches", "shapeColor", (color) => {
     shapeColorInput.value = color;
-    updateFooterColors();
+    Rarita.style.backgroundColor = color;
+    NumeroCarta.style.backgroundColor = color;
+    const Casella1 = document.getElementById(`Casella1`);   
+    if (Casella1) {
+        Casella1.style.backgroundColor = color;
+    }
+    for (let i = 2; i <= 5; i++) {
+        const shapenuovo = document.getElementById(`shape${i}`);
+        if (shapenuovo) {
+            shapenuovo.setAttribute('fill', color);
+        }
+    }
+
 });
 
 // Inizializzazione
@@ -511,7 +608,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Inizializza colori simboli e forme
     updateFooterColors();
     updateFontSizes();
-
+    let i = 2
     // Reset caselle
     for (let i = 1; i <= 5; i++) {
         const box = document.querySelector(`.footer-image-box[data-index="${i}"]`);
@@ -587,7 +684,20 @@ numberFontFamily.addEventListener("change", () => {
 
 
 
+function resizeFooterShapes( larghezza) {
+    const footer = document.querySelector('.card-footer');
+    const boxes = footer.querySelectorAll('.footer-image-box');
+    const totalWidth = footer.clientWidth;
+    const gap = 6; // come nel CSS
+    const boxCount = boxes.length;
 
+
+
+    boxes.forEach(box => {
+        box.style.width = `${larghezza}px`;
+       
+    });
+}
 
 
 
