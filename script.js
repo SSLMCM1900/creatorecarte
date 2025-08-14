@@ -754,3 +754,205 @@ const observer = new ResizeObserver(() => {
 
 observer.observe(imageContainer);
 
+
+const shapePolygoni = {
+  
+    star: "7,0 8.54,4.9 13.72,4.9 9.94,8 11.48,12.9 7,10 2.52,12.9 4.06,8 0.28,4.9 5.46,4.9",
+    diamond: "7,0 14,7 7,14 0,7",
+
+    circle: "circle"
+};
+
+const bottone = document.getElementById("InserisciSimboloDesc");
+const container = document.getElementById("container");
+bottone.addEventListener("click", () => {
+    const wrapper2 = document.createElement("div");
+    wrapper2.style.marginBottom = "10px";
+    wrapper2.style.display = "flex";
+    wrapper2.style.flexDirection = "column"; // tutto in colonna
+    wrapper2.style.gap = "5px"; // spazio tra gli elementi
+
+    // Dropdown forme
+    const shapeSelect = document.createElement("select");
+    Object.keys(shapePolygoni).forEach(shape => {
+        const option = document.createElement("option");
+        option.value = shape;
+        option.textContent = shape;
+        shapeSelect.appendChild(option);
+    });
+
+    // Dropdown simboli
+    const symbolSelect = document.createElement("select");
+    allowedSymbols.forEach(symbol => {
+        const option = document.createElement("option");
+        option.value = symbol;
+        option.textContent = symbol;
+        symbolSelect.appendChild(option);
+    });
+
+    // Input colore simbolo
+    const symbolColorInput = document.createElement("input");
+    symbolColorInput.type = "color";
+    symbolColorInput.value = "#000000";
+    symbolColorInput.id = "symbolColorInput";
+
+    // Container swatches simbolo (in riga, ma va a capo se necessario)
+    const symbolColorSwatchContainer = document.createElement("div");
+    symbolColorSwatchContainer.id = "symbolSwatchesContainer";
+    symbolColorSwatchContainer.style.display = "flex";
+    symbolColorSwatchContainer.style.flexWrap = "wrap"; // <- aggiunto
+    symbolColorSwatchContainer.style.gap = "2px";
+
+
+    // Input colore forma
+    const shapeColorInput = document.createElement("input");
+    shapeColorInput.type = "color";
+    shapeColorInput.value = "#dddddd";
+    shapeColorInput.id = "shapeColorInput";
+
+    // Container swatches forma (in riga, ma va a capo se necessario)
+    const shapeColorSwatchContainer = document.createElement("div");
+    shapeColorSwatchContainer.id = "shapeSwatchesContainer";
+    shapeColorSwatchContainer.style.display = "flex";
+    shapeColorSwatchContainer.style.flexWrap = "wrap"; // <- aggiunto
+    shapeColorSwatchContainer.style.gap = "2px";
+
+    // SVG anteprima
+    const svgPreview = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgPreview.setAttribute("width", "14");
+    svgPreview.setAttribute("height", "14");
+    svgPreview.setAttribute("viewBox", "0 0 14 14");
+
+    const updateShape = () => {
+        svgPreview.innerHTML = "";
+        const shape = shapeSelect.value;
+        const symbol = symbolSelect.value;
+        const shapeColor = shapeColorInput.value;
+        const symbolColor = symbolColorInput.value;
+        let shapeElement;
+
+        if (shape === "circle") {
+            shapeElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            shapeElement.setAttribute("cx", "7");
+            shapeElement.setAttribute("cy", "7");
+            shapeElement.setAttribute("r", "6");
+            shapeElement.setAttribute("fill", shapeColor);
+        } else {
+            shapeElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            shapeElement.setAttribute("points", shapePolygoni[shape]);
+            shapeElement.setAttribute("fill", shapeColor);
+        }
+
+        const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        textElement.setAttribute("x", "7");
+        textElement.setAttribute("y", "8.5");
+        textElement.setAttribute("text-anchor", "middle");
+        textElement.setAttribute("dominant-baseline", "middle");
+        textElement.setAttribute("font-size", "8");
+        textElement.setAttribute("fill", symbolColor);
+        textElement.textContent = symbol;
+
+        svgPreview.append(shapeElement, textElement);
+    };
+
+    const insertButton = document.createElement("button");
+    insertButton.textContent = "Inserisci simbolo";
+    insertButton.addEventListener("click", () => {
+        const cardDesc = document.getElementById("cardDescription");
+        if (!cardDesc) return;
+
+        const parolaDaSostituire = prompt("Inserisci la parola da sostituire con il simbolo:");
+        if (!parolaDaSostituire) return;
+
+        const svgInsert = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgInsert.setAttribute("width", "16");
+        svgInsert.setAttribute("height", "16");
+        svgInsert.setAttribute("viewBox", "0 0 16 16");
+        svgInsert.style.verticalAlign = "middle";
+        svgInsert.style.marginRight = "2px";
+
+        const shape = shapeSelect.value;
+        const symbol = symbolSelect.value;
+        const shapeColor = shapeColorInput.value;
+        const symbolColor = symbolColorInput.value;
+        let shapeElement;
+
+        if (shape === "circle") {
+            shapeElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            shapeElement.setAttribute("cx", "8");
+            shapeElement.setAttribute("cy", "8");
+            shapeElement.setAttribute("r", "7");
+            shapeElement.setAttribute("fill", shapeColor);
+        } else {
+            shapeElement = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+            const points = shapePolygoni[shape].split(" ").map(p => {
+                const [x, y] = p.split(",").map(Number);
+                return `${(x / 14 * 16).toFixed(2)},${(y / 14 * 16).toFixed(2)}`;
+            }).join(" ");
+            shapeElement.setAttribute("points", points);
+            shapeElement.setAttribute("fill", shapeColor);
+        }
+
+        const textElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        textElement.setAttribute("x", "8");
+        textElement.setAttribute("y", "9.5");
+        textElement.setAttribute("text-anchor", "middle");
+        textElement.setAttribute("dominant-baseline", "middle");
+        textElement.setAttribute("font-size", "9");
+        textElement.setAttribute("fill", symbolColor);
+        textElement.textContent = symbol;
+
+        svgInsert.append(shapeElement, textElement);
+
+        // Sostituzione della parola
+        const nodes = Array.from(cardDesc.childNodes);
+        nodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const idx = node.textContent.indexOf(parolaDaSostituire);
+                if (idx !== -1) {
+                    const before = node.textContent.slice(0, idx);
+                    const after = node.textContent.slice(idx + parolaDaSostituire.length);
+                    const beforeNode = document.createTextNode(before);
+                    const afterNode = document.createTextNode(after);
+                    cardDesc.replaceChild(afterNode, node);
+                    cardDesc.insertBefore(svgInsert, afterNode);
+                    cardDesc.insertBefore(beforeNode, svgInsert);
+                }
+            }
+        });
+    });
+
+    shapeSelect.addEventListener("change", updateShape);
+    symbolSelect.addEventListener("change", updateShape);
+    shapeColorInput.addEventListener("input", updateShape);
+    symbolColorInput.addEventListener("input", updateShape);
+
+    updateShape();
+
+    // Append degli elementi (tutto in colonna)
+    wrapper2.appendChild(shapeSelect);
+    wrapper2.appendChild(symbolSelect);
+
+    wrapper2.appendChild(symbolColorInput);
+    wrapper2.appendChild(symbolColorSwatchContainer);
+
+    wrapper2.appendChild(shapeColorInput);
+    wrapper2.appendChild(shapeColorSwatchContainer);
+
+    wrapper2.appendChild(svgPreview);
+    wrapper2.appendChild(insertButton);
+
+    container.appendChild(wrapper2);
+
+    // Chiamata a createColorSwatches (gli swatch saranno in riga)
+    createColorSwatches("symbolSwatchesContainer", "symbolColorInput", (color) => {
+        symbolColorInput.value = color;
+        updateShape();
+    });
+    createColorSwatches("shapeSwatchesContainer", "shapeColorInput", (color) => {
+        shapeColorInput.value = color;
+        updateShape();
+    });
+});
+
+
